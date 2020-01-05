@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% load widget_tweaks %}
+{% block content %}
+
+{% if message %}
+<div class="notification is-warning">
+	{{message}}
+</div>
+{% endif %}
+
+<form action="{% url 'user:index' %}" class="box" method="post">
+	{% csrf_token %}
+	<div class="field">
+		<label for="" class="label">{{ form.username.label }}</label>
+		<div class="control has-icons-left">
+			{% render_field form.username %}
+			<span class="icon is-small is-left">
+				<i class="fa fa-user"></i>
+			</span>
+		</div>
+		{% if not hide_error %}{{form.errors.username}}{% endif %}
+	</div>
+	<div class="field">
+		<label for="" class="label">{{ form.password.label }}</label>
+		<div class="control has-icons-left">
+			{% render_field form.password %}
+			<span class="icon is-small is-left">
+				<i class="fa fa-lock"></i>
+			</span>
+		</div>
+		{% if not hide_error %}{{form.errors.password}}{% endif %}
+	</div>
+	<div class="field">
+		{{form.next}}
+		<button class="button is-success">
+			Login
+		</button>
+	</div>
+</form>
+
+
+{% endblock %}
